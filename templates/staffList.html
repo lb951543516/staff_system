@@ -15,7 +15,7 @@
         {% for staff in page %}
             <tr>
                 <td>{{ staff.id }}</td>
-                <td><a href="{% url 'staff:staff_info' %}?sid={{ staff.id }}">{{ staff.name }}</a></td>
+                <td><a href="{% url 'staff:staff_info' %}?sid={{ staff.id }}&page={{ page.number }}">{{ staff.name }}</a></td>
                 <td>{{ staff.age }}</td>
                 {% if staff.gender %}
                     <td>男</td>
@@ -24,9 +24,9 @@
                 {% endif %}
 
                 <td>
-                    <a href="{% url 'staff:staff_delete' %}?sid={{ staff.id }}">删除</a>
+                    <a href="{% url 'staff:staff_delete' %}?sid={{ staff.id }}&page={{ page.number }}">删除</a>
                     &nbsp&nbsp
-                    <a href="{% url 'staff:staff_update' %}?sid={{ staff.id }}">修改</a>
+                    <a href="{% url 'staff:staff_update' %}?sid={{ staff.id }}&page={{ page.number }}">修改</a>
                 </td>
             </tr>
         {% endfor %}

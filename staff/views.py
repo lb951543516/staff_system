@@ -25,11 +25,10 @@ def staff_delete(request):
     staff.delete()
 
     # 获取其他用户
-    staff_list = Staff.objects.all()
-    context = {
-        'staffs': staff_list
-    }
-    return render(request, 'staffList.html', context=context)
+    # staff_list = Staff.objects.all()
+    # context = split_page(request, staff_list, 5)
+    # return render(request, 'staffList.html', context=context)
+    return redirect(reverse('staff:staffList'))
 
 
 # 修改员工信息
@@ -38,10 +37,12 @@ def staff_update(request):
     if request.method == "GET":
         # 获取该员工信息
         sid = request.GET.get('sid')
+        page = int(request.GET.get('page'))
         staff = Staff.objects.get(pk=sid)
         context = {
             'staff': staff,
-            'sid': sid
+            'sid': sid,
+            'page': page
         }
         return render(request, 'staff_update.html', context=context)
     else:
@@ -66,9 +67,11 @@ def staff_update(request):
 def staff_info(request):
     # 获取该员工信息
     sid = request.GET.get('sid')
+    page = int(request.GET.get('page'))
     staff = Staff.objects.get(pk=sid)
     context = {
-        'staff': staff
+        'staff': staff,
+        'page': page,
     }
     return render(request, 'staff_info.html', context=context)
 
