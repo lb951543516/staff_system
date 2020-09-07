@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}"/>
+    <script src="{% static 'jquery-3.5.1/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'jquery-1.8.3.js' %}"></script>
+    <script src="{% static 'js/code.js' %}"></script>
+    <title>Title</title>
+    <style>
+        #top {
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<!--导航栏-->
+<nav class="navbar navbar-default" id="top">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#">
+                <span class="glyphicon glyphicon-fire " aria-hidden="true"></span>员工管理</a>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% if request.session.username %}
+                    <li>
+                        <a href="{% url 'staff:staffList' %}">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="#">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                {% endif %}
+
+                {% if request.session.username %}
+                    <li>
+                        <a href="{% url 'staff:add_staff' %}">添加员工<span class="sr-only">(current)</span></a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            {#        搜索框#}
+            {% if request.session.username %}
+                <div>
+                    <form class="navbar-form navbar-left" action="{% url 'staff:search_staff' %}" method="POST"
+                          enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="sid" placeholder="ID" style="width: 100px">
+                            <input type="text" class="form-control" name="name" placeholder="Name" style="width: 100px">
+                            <input type="text" class="form-control" name="age" placeholder="Age" style="width: 100px">
+                            <input type="text" class="form-control" name="gender" placeholder="Gender"
+                                   style="width: 100px">
+                        </div>
+                        <button type="submit" class="btn btn-primary">搜索</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <div style="float: right;margin-top: 10px">
+                {% if request.session.username %}
+                    {#                    <a class="btn btn-info" href="/blog/content">个人微博</a>#}
+                    {#                    <a class="btn btn-success" href="/blog/write">发布微博</a>#}
+                    <a class="btn btn-primary" href="#">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"
+                                          style="margin:0px">.{{ request.session.username }}
+                                    </span>
+                    </a>
+                    <a class="btn btn-warning" href="{% url 'user_op:logout' %}">退出</a>
+                {% else %}
+                    <a class="btn btn-success" href="{% url 'user_op:login' %}">登录</a>
+                    <a class="btn btn-primary" href="{% url 'user_op:register' %}">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- 容器 -->
+<div class="container">
+    <div class="row">
+        <!-- 内容区 占8格-->
+        <div class="col-md-12">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{#    底栏#}
+<div style="float: bottom">
+    <nav id="foot" class="navbar navbar-default navbar-fixed-bottom" style="padding-top: 16px">
+        <div class="container footbar">
+            <div class="text-center text-secondary">Copyright @ LiuBuFan</div>
+        </div>
+    </nav>
+</div>
+
+
+</body>
+</html>
+
+

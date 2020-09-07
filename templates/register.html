@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1 align="center">注册</h1>
+    <hr>
+
+    {% if error == 1 %}
+        <div class="alert alert-danger" role="alert" style="text-align: center">密码有误！</div>
+    {% endif %}
+
+    {% if error == 0 %}
+        <div class="alert alert-danger" role="alert" style="text-align: center">用户名已注册或用户名有误！</div>
+    {% endif %}
+
+    <div style="margin-top: 50px"></div>
+
+    <form class="form-horizontal" action="{% url 'user_op:register' %}" method="POST" enctype="multipart/form-data">
+        {#       用户名#}
+        <div class="form-group">
+            <label for="account" class="col-sm-2 col-md-offset-2 control-label">用户名</label>
+            <div class="col-sm-4" style="float: left">
+                <input type="text" name="username" class="form-control" id="account" placeholder="Account(6~12)">
+            </div>
+            <div><span style="color: red;float:left;font-size: 16px" id="span1"></span></div>
+        </div>
+
+        {#密码#}
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2  col-md-offset-2 control-label">密码</label>
+            <div class="col-sm-4" style="float: left">
+                <input type="password" name="password" class="form-control" id="inputPassword3"
+                       placeholder="Password(6~12)">
+            </div>
+            <div><span style="color: red;float:left;font-size: 16px" id="span2"></span></div>
+        </div>
+
+        {#        确认密码#}
+        <div class="form-group">
+            <label for="inputPassword2" class="col-sm-2  col-md-offset-2 control-label">确认密码</label>
+            <div class="col-sm-4" style="float: left">
+                <input type="password" name="password2" class="form-control" id="inputPassword2"
+                       placeholder="Confirm Password">
+            </div>
+            <div><span style="color: red;float:left;font-size: 16px" id="span3"></span></div>
+        </div>
+
+        {#        年龄#}
+        <div class="form-group">
+            <label for="inputage" class="col-sm-2  col-md-offset-2 control-label">年龄</label>
+            <div class="col-sm-4" style="float: left">
+                <input type="password" name="age" class="form-control" id="inputage"
+                       placeholder="Age">
+            </div>
+            <div><span style="color: red;float:left;font-size: 16px" id="span4"></span></div>
+        </div>
+
+
+        {#        性别#}
+        <div class="form-group">
+            <label class="col-sm-2  col-md-offset-2 control-label">性别</label>
+
+            <label class="radio-inline" style="margin-left: 20px">
+                <input type="radio" name="gender" value="1" checked>男
+            </label>
+
+            <label class="radio-inline">
+                <input type="radio" name="gender" value="0">女
+            </label>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10"></div>
+        </div>
+
+        {#        按钮#}
+        <div class="form-group">
+            <label class="col-sm-2  col-md-offset-2 control-label"></label>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-success">注册</button>
+                &nbsp<a href="{% url 'user_op:login' %}">
+                <button type="button" class="btn btn-success" style="margin-left: 20px">返回</button>
+            </a>
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+        //当网页加载完成时
+        $().ready(function () {
+            var account = $('#account')
+            var password = $('#inputPassword3')
+            var comfirm_pwd = $('#inputPassword2')
+            var age = $('#inputage')
+
+            //account失去焦点的时候
+            account.blur(function () {
+                //获取input值的长度
+                if (account.val().length < 6 || account.val().length > 12) {
+                    $('#span1').html('*长度不符')
+                } else {
+                    $('#span1').html('')
+                }
+            })
+            //pwd失去焦点的时候
+            password.blur(function () {
+                //获取input值的长度
+                if (password.val().length < 6 || password.val().length > 12) {
+                    $('#span2').html('*长度不符')
+                } else {
+                    $('#span2').html('')
+                }
+            })
+            //comfirm-pwd失去焦点的时候
+            comfirm_pwd.blur(function () {
+                //获取input值的长度
+                if (comfirm_pwd.val() != password.val()) {
+                    $('#span3').html('*两次密码不同')
+                } else {
+                    $('#span3').html('')
+                }
+            })
+            //age失去焦点的时候
+            age.blur(function () {
+                //获取input值的长度
+                if (age.val().length < 1) {
+                    $('#span4').html('*年龄不能为空')
+                } else {
+                    $('#span4').html('')
+                }
+            })
+
+        })
+
+
+    </script>
+
+{% endblock %}

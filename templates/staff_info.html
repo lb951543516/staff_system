@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 align="center">员工个人信息</h1>
+    <hr>
+
+
+    <form class="form-horizontal" style="margin-top: 10px">
+        {#        id#}
+        <div class="form-group">
+            <label for="userid" class="col-sm-2 col-md-offset-2 control-label">ID</label>
+            <div class="col-sm-4">
+                <input type="text" name="id" class="form-control" id="userid"
+                       placeholder="{{ staff.id }}" disabled>
+            </div>
+        </div>
+
+        {#        名字#}
+        <div class="form-group">
+            <label for="account" class="col-sm-2 col-md-offset-2 control-label">用户名</label>
+            <div class="col-sm-4">
+                <input type="text" name="name" class="form-control" id="account"
+                       placeholder="{{ staff.name }}" disabled>
+            </div>
+        </div>
+
+        {#        年龄#}
+        <div class="form-group">
+            <label for="account" class="col-sm-2 col-md-offset-2 control-label">用户名</label>
+            <div class="col-sm-4">
+                <input type="text" name="name" class="form-control" id="account"
+                       placeholder="{{ staff.age }}" disabled>
+            </div>
+        </div>
+
+        {#        性别#}
+        {% if staff.gender == 1 %}
+            <div class="form-group">
+                <label for="inputgender1" class="col-sm-2  col-md-offset-2 control-label">性别</label>
+                <div class="col-sm-4">
+                    <input type="text" name="birthday" class="form-control" id="inputgender1"
+                           placeholder="小哥哥" disabled>
+                </div>
+            </div>
+        {% else %}
+            <div class="form-group">
+                <label for="inputgender2" class="col-sm-2  col-md-offset-2 control-label">性别</label>
+                <div class="col-sm-4">
+                    <input type="text" name="birthday" class="form-control" id="inputgender2"
+                           placeholder="小姐姐" disabled>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <div class="col-sm-8"></div>
+        </div>
+
+        {#按钮#}
+        <div class="form-group">
+            <label class="col-sm-2  col-md-offset-2 control-label"></label>
+            <div class="col-sm-4">
+                <a href="{% url 'staff:staffList' %}">
+                    <button type="button" class="btn btn-info">返回</button>
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}

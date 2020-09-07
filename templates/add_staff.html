@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 align="center">添加新员工</h1>
+    <hr>
+
+    {% if error == 0 %}
+        <div class="alert alert-danger" role="alert" style="text-align: center">员工信息不能为空！</div>
+    {% endif %}
+
+    <form class="form-horizontal" action="{% url 'staff:add_staff' %}" method="POST" enctype="multipart/form-data">
+        {#       名字#}
+        <div class="form-group">
+            <label for="account" class="col-sm-2 col-md-offset-2 control-label">姓名</label>
+            <div class="col-sm-4">
+                <input type="text" name="name" class="form-control" id="account" placeholder="Name">
+            </div>
+        </div>
+
+        {#        年龄#}
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2  col-md-offset-2 control-label">年龄</label>
+            <div class="col-sm-4">
+                <input type="text" name="age" class="form-control" id="inputPassword3" placeholder="Age">
+            </div>
+        </div>
+
+        {#        性别#}
+        <div class="form-group">
+            <label class="col-sm-2  col-md-offset-2 control-label">性别</label>
+
+            <label class="radio-inline" style="margin-left: 20px">
+                <input type="radio" name="gender" value="1" checked>男
+            </label>
+
+            <label class="radio-inline">
+                <input type="radio" name="gender" value="0">女
+            </label>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10"></div>
+        </div>
+
+        {#        按钮#}
+        <div class="form-group">
+            <label class="col-sm-2  col-md-offset-2 control-label"></label>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-success">添加</button>
+                &nbsp<a href="{% url 'staff:staffList' %}">
+                <button type="button" class="btn btn-success" style="margin-left: 20px">返回</button>
+            </a>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
