@@ -96,7 +96,7 @@ def add_staff(request):
         return redirect(reverse('staff:staffList'))
 
 
-# 查询员工
+# 查询员工(查询员工分页存在问题)
 @login_required
 def search_staff(request):
     # if request.method == "GET":
