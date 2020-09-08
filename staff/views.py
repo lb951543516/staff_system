@@ -150,8 +150,8 @@ def search_staff(request):
         search_info['age'] = age
     if gender:
         search_info['gender'] = gender
-
-    # return redirect(reverse('staff:search_staff'))
+    if not sid and not name and not age and not gender:
+        return redirect(reverse('staff:staffList'))
 
     # 数据总数
     staff_num = Staff.objects.filter(**search_info).count()
