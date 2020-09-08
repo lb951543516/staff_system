@@ -49,8 +49,8 @@
         <div class="form-group">
             <label for="inputage" class="col-sm-2  col-md-offset-2 control-label">年龄</label>
             <div class="col-sm-4" style="float: left">
-                <input type="password" name="age" class="form-control" id="inputage"
-                       placeholder="Age">
+                <input type="text" name="age" class="form-control" id="inputage"
+                       placeholder="Age(1-100)">
             </div>
             <div><span style="color: red;float:left;font-size: 16px" id="span4"></span></div>
         </div>
@@ -127,6 +127,8 @@
                 //获取input值的长度
                 if (age.val().length < 1) {
                     $('#span4').html('*年龄不能为空')
+                } else if (age.val()<1 || age.val()>100){
+                    $('#span4').html('*请输入正确的年龄')
                 } else {
                     $('#span4').html('')
                 }

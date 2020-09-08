@@ -15,7 +15,9 @@
         {% for staff in page %}
             <tr>
                 <td>{{ staff.id }}</td>
-                <td><a href="{% url 'staff:staff_info' %}?sid={{ staff.id }}&page={{ page.number }}">{{ staff.name }}</a></td>
+                <td>
+                    <a href="{% url 'staff:staff_info' %}?sid={{ staff.id }}&page={{ page.number }}">{{ staff.name }}</a>
+                </td>
                 <td>{{ staff.age }}</td>
                 {% if staff.gender %}
                     <td>男</td>
