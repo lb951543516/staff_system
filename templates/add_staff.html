@@ -7,6 +7,9 @@
     {% if error == 0 %}
         <div class="alert alert-danger" role="alert" style="text-align: center">员工信息不能为空！</div>
     {% endif %}
+    {% if error == 1 %}
+        <div class="alert alert-danger" role="alert" style="text-align: center">年龄有误！</div>
+    {% endif %}
 
     <form class="form-horizontal" action="{% url 'staff:add_staff' %}" method="POST" enctype="multipart/form-data">
         {#       名字#}
@@ -37,7 +40,6 @@
                 <input type="radio" name="gender" value="0">女
             </label>
         </div>
-
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10"></div>

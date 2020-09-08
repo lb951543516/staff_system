@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -21,6 +23,7 @@ def staffList(request):
 def staff_delete(request):
     # 删除员工
     sid = request.GET.get('sid')
+    page = int(request.GET.get('page'))
     staff = Staff.objects.get(pk=sid)
     staff.delete()
 
@@ -28,7 +31,7 @@ def staff_delete(request):
     # staff_list = Staff.objects.all()
     # context = split_page(request, staff_list, 5)
     # return render(request, 'staffList.html', context=context)
-    return redirect(reverse('staff:staffList'))
+    return redirect(f'/staff/staffList?page={page}')
 
 
 # 修改员工信息
@@ -52,6 +55,7 @@ def staff_update(request):
         name = request.POST.get('name')
         age = request.POST.get('age')
         gender = request.POST.get('gender')
+        page = int(request.POST.get('page'))
 
         # 修改数据库
         staff.name = name
@@ -59,7 +63,7 @@ def staff_update(request):
         staff.gender = gender
         staff.save()
 
-        return redirect(reverse('staff:staffList'))
+        return redirect(f'/staff/staffList?page={page}')
 
 
 # 查看员工信息
@@ -79,6 +83,10 @@ def staff_info(request):
 # 添加员工信息
 @login_required
 def add_staff(request):
+    staff_num = Staff.objects.all().count()
+    per_page = 5
+    max_page = math.ceil(staff_num / per_page)
+
     if request.method == "GET":
         return render(request, 'add_staff.html')
     else:
@@ -92,11 +100,18 @@ def add_staff(request):
                 'error': 0
             }
             return render(request, 'add_staff.html', context=context)
+        if age.isdigit():
+            age = int(age)
+        else:
+            context = {
+                'error': 1
+            }
+            return render(request, 'add_staff.html', context=context)
 
         staff = Staff(name=name, age=age, gender=gender)
         staff.save()
 
-        return redirect(reverse('staff:staffList'))
+        return redirect(f'/staff/staffList?page={max_page}')
 
 
 # 查询员工(查询员工分页存在问题)

@@ -54,7 +54,7 @@
                 {#页码显示#}
                 {% for x in page_range %}
                     {% if x == page.number %}
-                        <li><a href="#" style="color: gray">{{ x }}</a></li>
+                        <li><a href="#" style="color: black">{{ x }}</a></li>
                     {% else %}
                         <li><a href="{% url 'staff:staffList' %}?page={{ x }}">{{ x }}</a></li>
                     {% endif %}

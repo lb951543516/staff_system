@@ -5,7 +5,7 @@
     <hr>
 
 
-    <form class="form-horizontal" action="{% url 'staff:staff_update' %}?page={{ page }}" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{% url 'staff:staff_update' %}" method="POST" enctype="multipart/form-data">
         {#       名字#}
         <div class="form-group">
             <label for="account" class="col-sm-2 col-md-offset-2 control-label">名字</label>
@@ -52,6 +52,7 @@
 
         {#       隐式提交员工id#}
         <input type="hidden" name="sid" value="{{ sid }}">
+        <input type="hidden" name="page" value="{{ page }}">
 
 
         {#       按钮#}
