@@ -26,10 +26,6 @@ def staff_delete(request):
     staff = Staff.objects.get(pk=sid)
     staff.delete()
 
-    # 获取其他用户
-    # staff_list = Staff.objects.all()
-    # context = split_page(request, staff_list, 5)
-    # return render(request, 'staffList.html', context=context)
     return redirect(f'/staff/staffList?page={page}')
 
 
@@ -123,24 +119,10 @@ def add_staff(request):
 # 查询员工(查询员工分页存在问题)
 @login_required
 def search_staff(request):
-    # if request.method == "GET":
-    #     # # 数据总数
-    #     # staff_num = Staff.objects.filter(**search_info).count()
-    #     # if staff_num == 0:
-    #     #     context = {
-    #     #         'error': 0
-    #     #     }
-    #     #     return render(request, 'search_staff.html', context=context)
-    #     # else:
-    #     #     staff_list = Staff.objects.filter(**search_info)
-    #     #     context = split_page(request, staff_list, 10)
-    #     #     return render(request, 'search_staff.html', context=context)
-    #     pass
-    # else:
-    sid = request.POST.get('sid').strip()
-    name = request.POST.get('name').strip()
-    age = request.POST.get('age').strip()
-    gender = request.POST.get('gender').strip()
+    sid = request.GET.get('sid', '').strip()
+    name = request.GET.get('name', '').strip()
+    age = request.GET.get('age', '').strip()
+    gender = request.GET.get('gender', '').strip()
     if gender == '男':
         gender = '1'
     elif gender == '女':
@@ -168,8 +150,11 @@ def search_staff(request):
         return render(request, 'search_staff.html', context=context)
     else:
         staff_list = Staff.objects.filter(**search_info)
-        # context = split_page(request, staff_list, 5)
+        content = split_page(request, staff_list, 5)
         context = {
-            'staffs': staff_list
+            'page': content['page'],
+            'paginator': content['paginator'],
+            'page_range': content['page_range'],
+            'search_info': search_info,
         }
         return render(request, 'search_staff.html', context=context)

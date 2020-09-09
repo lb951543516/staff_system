@@ -17,7 +17,7 @@ def split_page(request, object_list, per_page):
         page = paginator.page(get_page)
     except PageNotAnInteger:
         # 不是整数返回第一页数据
-        page = paginator.page('1')
+        page = paginator.page(1)
         get_page = 1
     except EmptyPage:
         # 当参数页码大于或小于页码范围时,会触发该异常

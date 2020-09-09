@@ -59,8 +59,7 @@
             {#        搜索框#}
             {% if request.session.username %}
                 <div>
-                    <form class="navbar-form navbar-left" action="{% url 'staff:search_staff' %}" method="POST"
-                          enctype="multipart/form-data">
+                    <form class="navbar-form navbar-left" action="{% url 'staff:search_staff' %}">
                         <div class="form-group">
                             <input type="text" class="form-control" name="sid" placeholder="ID" style="width: 100px">
                             <input type="text" class="form-control" name="name" placeholder="Name" style="width: 100px">

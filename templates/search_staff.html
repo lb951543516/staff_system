@@ -16,7 +16,7 @@
             <th>性别</th>
             <th>操作</th>
         </tr>
-        {% for staff in staffs %}
+        {% for staff in page %}
             <tr>
                 <td>{{ staff.id }}</td>
                 <td><a href="{% url 'staff:staff_info' %}?sid={{ staff.id }}">{{ staff.name }}</a></td>
@@ -38,45 +38,51 @@
 
 
     {#    ----------------------------------分页-------------------#}
-{#    <div align="center" style="margin-bottom: 30px">#}
-{#        <nav aria-label="Page navigation" class="navbar-sta">#}
-{#            <ul class="pagination">#}
-{##}
+    <div align="center" style="margin-bottom: 30px">
+        <nav aria-label="Page navigation" class="navbar-sta">
+            <ul class="pagination">
+
                 {#前一页#}
-{#                <li>#}
-{#                    {% if page.has_previous %}#}
-{#                        <a href="{% url 'staff:search_staff' %}?page={{ page.previous_page_number }}"#}
-{#                           aria-label="Previous">#}
-{#                            <span aria-hidden="true">&laquo;</span>#}
-{#                        </a>#}
-{#                    {% else %}#}
-{#                        <a href="#" aria-label="Previous" style="color: gray">#}
-{#                            <span aria-hidden="true">&laquo;</span>#}
-{#                        </a>#}
-{#                    {% endif %}#}
-{#                </li>#}
+                <li>
+                    {% if page.has_previous %}
+                        <a href="{% url 'staff:search_staff' %}
+                        ?sid={{ search_info.id }}&name={{ search_info.name }}&age={{ search_info.age }}
+                        &gender={{ search_info.gender }}&page={{ page.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
+                        <a href="#" aria-label="Previous" style="color: gray">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% endif %}
+                </li>
                 {#页码显示#}
-{#                {% for x in page_range %}#}
-{#                    {% if x == page.number %}#}
-{#                        <li><a href="#" style="color: gray">{{ x }}</a></li>#}
-{#                    {% else %}#}
-{#                        <li><a href="{% url 'staff:search_staff' %}?page={{ x }}">{{ x }}</a></li>#}
-{#                    {% endif %}#}
-{#                {% endfor %}#}
-{##}
+                {% for x in page_range %}
+                    {% if x == page.number %}
+                        <li><a href="#" style="color: gray">{{ x }}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'staff:search_staff' %}
+                        ?sid={{ search_info.id }}&name={{ search_info.name }}&age={{ search_info.age }}
+                        &gender={{ search_info.gender }}&page={{ x }}">{{ x }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
                 {#后一页#}
-{#                <li>#}
-{#                    {% if page.has_next %}#}
-{#                        <a href="{% url 'staff:search_staff' %}?page={{ page.next_page_number }}" aria-label="Next">#}
-{#                            <span aria-hidden="true">&raquo;</span>#}
-{#                        </a>#}
-{#                    {% else %}#}
-{#                        <a href="#" aria-label="Next" style="color: gray">#}
-{#                            <span aria-hidden="true">&raquo;</span>#}
-{#                        </a>#}
-{#                    {% endif %}#}
-{#                </li>#}
-{#            </ul>#}
-{#        </nav>#}
-{#    </div>#}
+                <li>
+                    {% if page.has_next %}
+                        <a href="{% url 'staff:search_staff' %}
+                        ?sid={{ search_info.id }}&name={{ search_info.name }}&age={{ search_info.age }}
+                        &gender={{ search_info.gender }}&page={{ page.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
+                        <a href="#" aria-label="Next" style="color: gray">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </div>
 {% endblock %}
