@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -9,6 +10,7 @@ def login(request):
         # 获取登录信息
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         yzm = int(request.POST.get('yzm'))
         # 验证验证码是否正确
         if yzm == 0:
@@ -26,7 +28,9 @@ def login(request):
             return render(request, 'login.html', context=context)
         else:
             user = User.objects.filter(username=username)[0]
-            if user.password != password:
+            # 解密
+            if not check_password(password, user.password):
+                # if user.password != password:
                 context = {
                     'error': 0
                 }
@@ -63,8 +67,12 @@ def register(request):
             }
             return render(request, 'register.html', context=context)
 
+        # 加密
+        salt = 'qwdfg'
+        new_password = make_password(password, salt, 'pbkdf2_sha1')
+
         # 信息添加到user数据库
-        user = User(username=username, password=password, age=age, gender=gender)
+        user = User(username=username, password=new_password, age=age, gender=gender)
         user.save()
         return redirect(reverse('user_op:login'))
     else:

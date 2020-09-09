@@ -61,3 +61,4 @@ def login_required(func):
             return func(request)
 
     return check_session
+
